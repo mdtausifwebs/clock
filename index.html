@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>show clock time</h1>
+    <h1 id="showtime"></h1>
+    <h1>show reverse time</h1>
+    <h1 id="showtimer">0:0:0</h1>
+    hr:
+    <input type="number" id="hours" value="24" placeholder="type hourse" /> min
+    <input type="number" id="minutes" value="60" placeholder="type minute" />
+    sec
+    <input type="number" id="seconds" value="60" placeholder="type second" />
+    <button onclick="inputtime()">start</button>
+
+    <h1>show take time</h1>
+    <h1 id="timetakeshow">Hours:-0 Minutes:-0 Seconds:-0</h1>
+    <button onclick="timetake()">start take timers</button>
+  </body>
+</html>
+<script>
+  // watch clock
+    function show() {
+    let show = document.getElementById("showtime");
+    let day = new Date();
+    let sec = day.getSeconds();
+    let min = day.getMinutes();
+    let hr = day.getHours();
+    show.innerText = `${hr % 12}:${min}:${sec}`;
+  }
+  setInterval(show, 1000);
+// reverce timer
+  var showtime = document.getElementById("showtimer");
+  function inputtime() {
+    let sectimer = Number(document.getElementById("seconds").value);
+    let mintimer = Number(document.getElementById("minutes").value);
+    let hrtimer = Number(document.getElementById("hours").value);
+    setInterval(() => {
+      if (sectimer == 0) {
+        sectimer = 60;
+        mintimer = mintimer - 1;
+      } else {
+        sectimer = sectimer - 1;
+      }
+      if (mintimer == 0) {
+        mintimer = 60;
+        hrtimer = hrtimer - 1;
+      }
+      showtime.innerHTML = `${hrtimer}:${mintimer}:${sectimer}`;
+    }, 1000);
+  }
+
+// take timers
+
+  var timetakeshow = document.getElementById("timetakeshow");
+  let takeSec = 0;
+  let takeMin = 0;
+  let takeHr = 0;
+  function timetake() {
+    setInterval(() => {
+      if (takeSec == 60) {
+        takeSec = 0;
+        takeMin+=1
+      }else{
+        takeSec+=1;
+      }
+      if (takeMin == 60) {
+        takeMin = 0;
+        takeHr = takeHr + 1;
+      }
+      timetakeshow.innerHTML = `Hours:-${takeHr} Minutes:-${takeMin} Seconds:-${takeSec}`;
+    }, 1000);
+  }
+</script>
